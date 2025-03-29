@@ -23,109 +23,134 @@
             top: 0;
             width: 100%;
             background-color: rgba(0, 0, 0, 0.9);
-            padding: 15px;
+            padding: 15px 0;
             z-index: 10;
             display: flex;
+            justify-content: center;
             align-items: center;
-            justify-content: space-between;
             border-bottom: 1px solid #333;
         }
 
-        .logo {
-            height: 40px;
-            margin-left: 20px;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 15px;
-            margin-right: 20px;
-        }
-
-        .nav-links a {
+        .navbar a {
             color: white;
             text-decoration: none;
+            margin: 0 15px;
             font-size: 18px;
             padding: 8px 12px;
             border-radius: 5px;
             transition: background-color 0.3s;
         }
 
-        .nav-links a:hover {
+        .navbar a:hover {
             background-color: #444;
         }
 
-        .menu-toggle {
-            display: none;
-            font-size: 24px;
-            background: none;
-            border: none;
-            color: white;
-            cursor: pointer;
-            margin-right: 20px;
-        }
-
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-                flex-direction: column;
-                position: absolute;
-                top: 60px;
-                right: 20px;
-                background: rgba(0, 0, 0, 0.9);
-                padding: 10px;
-                border-radius: 5px;
-            }
-
-            .nav-links.active {
-                display: flex;
-            }
-
-            .menu-toggle {
-                display: block;
-            }
+        .logo {
+            height: 40px;
+            margin: 0 20px;
         }
 
         section {
             min-height: 100vh;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
             padding: 40px 20px;
             background-color: #000;
         }
+
+        .sketchfab-container {
+            width: 85%;
+            height: 600px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+        }
+
+        .sketchfab-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .video-container {
+            width: 85%;
+            max-width: 900px;
+            margin-top: 20px;
+        }
+
+        .video-container iframe {
+            width: 100%;
+            height: 500px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            max-width: 900px;
+            margin-top: 20px;
+        }
+
+        .gallery img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+        }
     </style>
 </head>
 <body>
+
     <div class="navbar">
+        <a data-target="model-section">Model samochodu</a>
         <img src="image (56).png" alt="Logo" class="logo">
-        <button class="menu-toggle">&#9776;</button>
-        <div class="nav-links">
-            <a href="#model-section">Model samochodu</a>
-            <a href="#video-section">Film</a>
-            <a href="#gallery-section">Galeria</a>
-        </div>
+        <a data-target="video-section">Film</a>
+        <a data-target="gallery-section">Galeria</a>
     </div>
 
     <section id="model-section">
-        <h1>Model samochodu</h1>
+        <div class="sketchfab-container">
+            <iframe title="samochód" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/18a430ed338247f3af25abd3aa68c587/embed?ui_infos=0&ui_watermark=0"> </iframe>
+        </div>
     </section>
+
     <section id="video-section">
-        <h1>Film</h1>
+        <div class="video-container">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/s3ZuxWPeiUQ?si=JZzhF1OAH3MuMNXW" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
     </section>
+
     <section id="gallery-section">
-        <h1>Galeria</h1>
+        <div class="gallery">
+            <img src="ujecia/1.jpg" alt="Zdjęcie 1">
+            <img src="ujecia/2.jpg" alt="Zdjęcie 2">
+            <img src="ujecia/3.jpg" alt="Zdjęcie 3">
+            <img src="ujecia/4.jpg" alt="Zdjęcie 4">
+            <img src="ujecia/5.jpg" alt="Zdjęcie 5">
+            <img src="ujecia/6.jpg" alt="Zdjęcie 6">
+            <img src="ujecia/7.jpg" alt="Zdjęcie 7">
+            <img src="ujecia/8.jpg" alt="Zdjęcie 8">
+            <img src="ujecia/9.jpg" alt="Zdjęcie 9">
+        </div>
     </section>
 
     <script>
-        document.querySelector('.menu-toggle').addEventListener('click', function() {
-            document.querySelector('.nav-links').classList.toggle('active');
-        });
-
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', function() {
-                document.querySelector('.nav-links').classList.remove('active');
+        document.querySelectorAll('.navbar a').forEach(anchor => {
+            anchor.addEventListener('click', function(event) {
+                event.preventDefault();
+                const targetId = this.getAttribute('data-target');
+                const targetElement = document.getElementById(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 60,
+                        behavior: 'smooth'
+                    });
+                }
             });
         });
     </script>
