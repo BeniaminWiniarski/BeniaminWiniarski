@@ -23,31 +23,34 @@
             top: 0;
             width: 100%;
             background-color: rgba(0, 0, 0, 0.9);
-            padding: 15px 0;
+            padding: 10px 20px;
             z-index: 10;
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
             border-bottom: 1px solid #333;
         }
 
-        .navbar a {
+        .logo {
+            height: 30px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav-links a {
             color: white;
             text-decoration: none;
-            margin: 0 15px;
-            font-size: 18px;
-            padding: 8px 12px;
+            font-size: 16px;
+            padding: 6px 10px;
             border-radius: 5px;
             transition: background-color 0.3s;
         }
 
-        .navbar a:hover {
+        .nav-links a:hover {
             background-color: #444;
-        }
-
-        .logo {
-            height: 40px;
-            margin: 0 20px;
         }
 
         section {
@@ -61,37 +64,9 @@
             background-color: #000;
         }
 
-        .sketchfab-container {
-            width: 85%;
-            height: 600px;
-            position: relative;
-            overflow: hidden;
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
-        }
-
-        .sketchfab-container iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        .video-container {
-            width: 85%;
-            max-width: 900px;
-            margin-top: 20px;
-        }
-
-        .video-container iframe {
-            width: 100%;
-            height: 500px;
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
-        }
-
         .gallery {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(2, 1fr);
             gap: 10px;
             max-width: 900px;
             margin-top: 20px;
@@ -107,23 +82,13 @@
 <body>
 
     <div class="navbar">
-        <a data-target="model-section">Model</a>
-        <img src="image (56).png" alt="Logo" class="logo">
-        <a data-target="video-section">Film</a>
-        <a data-target="gallery-section">Galeria</a>
+        <img src="assets/images/logo.png" alt="Logo" class="logo">
+        <div class="nav-links">
+            <a href="#model-section">Samochód 3D</a>
+            <a href="#video-section">Film</a>
+            <a href="#gallery-section">Galeria</a>
+        </div>
     </div>
-
-    <section id="model-section">
-        <div class="sketchfab-container">
-            <iframe title="samochód" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/18a430ed338247f3af25abd3aa68c587/embed?ui_infos=0&ui_watermark=0"> </iframe>
-        </div>
-    </section>
-
-    <section id="video-section">
-        <div class="video-container">
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/s3ZuxWPeiUQ?si=JZzhF1OAH3MuMNXW" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-        </div>
-    </section>
 
     <section id="gallery-section">
         <div class="gallery">
@@ -140,20 +105,5 @@
         </div>
     </section>
 
-    <script>
-        document.querySelectorAll('.navbar a').forEach(anchor => {
-            anchor.addEventListener('click', function(event) {
-                event.preventDefault();
-                const targetId = this.getAttribute('data-target');
-                const targetElement = document.getElementById(targetId);
-                if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 60,
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
-    </script>
 </body>
 </html>
