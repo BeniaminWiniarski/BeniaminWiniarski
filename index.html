@@ -39,6 +39,7 @@
         .nav-links {
             display: flex;
             gap: 15px;
+            margin-right: 20px;
         }
 
         .nav-links a {
@@ -84,6 +85,16 @@
                 display: block;
             }
         }
+
+        section {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 40px 20px;
+            background-color: #000;
+        }
     </style>
 </head>
 <body>
@@ -97,13 +108,25 @@
         </div>
     </div>
 
-    <section id="model-section">Treść sekcji Model</section>
-    <section id="video-section">Treść sekcji Film</section>
-    <section id="gallery-section">Treść sekcji Galeria</section>
+    <section id="model-section">
+        <h1>Model samochodu</h1>
+    </section>
+    <section id="video-section">
+        <h1>Film</h1>
+    </section>
+    <section id="gallery-section">
+        <h1>Galeria</h1>
+    </section>
 
     <script>
         document.querySelector('.menu-toggle').addEventListener('click', function() {
             document.querySelector('.nav-links').classList.toggle('active');
+        });
+
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', function() {
+                document.querySelector('.nav-links').classList.remove('active');
+            });
         });
     </script>
 </body>
