@@ -32,7 +32,7 @@
         }
 
         .logo {
-            height: 30px;
+            height: 40px;
         }
 
         .nav-links {
@@ -43,8 +43,8 @@
         .nav-links a {
             color: white;
             text-decoration: none;
-            font-size: 16px;
-            padding: 6px 10px;
+            font-size: 18px;
+            padding: 8px 12px;
             border-radius: 5px;
             transition: background-color 0.3s;
         }
@@ -62,6 +62,21 @@
             text-align: center;
             padding: 40px 20px;
             background-color: #000;
+        }
+
+        .sketchfab-container {
+            width: 85%;
+            height: 600px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+        }
+
+        .sketchfab-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
         }
 
         .gallery {
@@ -89,6 +104,18 @@
             <a href="#gallery-section">Galeria</a>
         </div>
     </div>
+
+    <section id="model-section">
+        <div class="sketchfab-container">
+            <iframe title="samochód" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/18a430ed338247f3af25abd3aa68c587/embed?ui_infos=0&ui_watermark=0"> </iframe>
+        </div>
+    </section>
+
+    <section id="video-section">
+        <div class="video-container">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/s3ZuxWPeiUQ?si=JZzhF1OAH3MuMNXW" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+    </section>
 
     <section id="gallery-section">
         <div class="gallery">
