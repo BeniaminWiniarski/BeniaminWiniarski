@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,27 +18,28 @@
             scroll-behavior: smooth;
         }
 
+        /* Nawigacja */
         .navbar {
             position: fixed;
             top: 0;
             width: 100%;
             background-color: rgba(0, 0, 0, 0.9);
             padding: 10px 20px;
-            z-index: 10;
+            z-index: 1000;
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            justify-content: space-between;
             border-bottom: 1px solid #333;
         }
 
         .logo {
             height: 40px;
-            margin-right: 20px; /* Dodany odstęp od linków */
+            margin-right: 20px; /* Dodatkowy odstęp między logo a linkami */
         }
 
         .nav-links {
             display: flex;
-            gap: 20px; /* Zwiększony odstęp między linkami */
+            gap: 20px; /* Większa przerwa między linkami */
         }
 
         .nav-links a {
@@ -54,16 +55,7 @@
             background-color: #444;
         }
 
-        @media (max-width: 600px) {
-            .nav-links {
-                gap: 10px; /* Mniejszy odstęp na telefonach */
-            }
-            .nav-links a {
-                font-size: 16px; /* Zmniejszona czcionka dla małych ekranów */
-                padding: 6px 10px;
-            }
-        }
-
+        /* Styl sekcji */
         section {
             min-height: 100vh;
             display: flex;
@@ -75,12 +67,12 @@
             background-color: #000;
         }
 
+        /* Model 3D */
         .sketchfab-container {
             width: 85%;
             height: 600px;
-            position: relative;
-            overflow: hidden;
             border-radius: 10px;
+            overflow: hidden;
             box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
         }
 
@@ -90,6 +82,20 @@
             border: none;
         }
 
+        /* Film */
+        .video-container {
+            width: 85%;
+            max-width: 600px;
+        }
+
+        .video-container iframe {
+            width: 100%;
+            height: 300px; /* Mniejsze na telefonach */
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+        }
+
+        /* Galeria */
         .gallery {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -103,11 +109,79 @@
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
         }
+
+        /* Responsywność */
+        @media (max-width: 768px) {
+            .nav-links {
+                gap: 10px; /* Mniejsze odstępy na telefonach */
+            }
+            .nav-links a {
+                font-size: 16px; /* Mniejsza czcionka na telefonach */
+            }
+            .video-container iframe {
+                height: 250px;
+            }
+        }
     </style>
 </head>
 <body>
 
+    <!-- Nawigacja -->
     <div class="navbar">
         <img src="logo.png" alt="Logo" class="logo">
         <div class="nav-links">
-            <a href="#model-se
+            <a href="#model-section">Samochód 3D</a>
+            <a href="#video-section">Film</a>
+            <a href="#gallery-section">Galeria</a>
+        </div>
+    </div>
+
+    <!-- Sekcja modelu 3D -->
+    <section id="model-section">
+        <div class="sketchfab-container">
+            <iframe title="samochód" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" src="https://sketchfab.com/models/18a430ed338247f3af25abd3aa68c587/embed?ui_infos=0&ui_watermark=0"></iframe>
+        </div>
+    </section>
+
+    <!-- Sekcja filmu -->
+    <section id="video-section">
+        <div class="video-container">
+            <iframe width="100%" src="https://www.youtube.com/embed/s3ZuxWPeiUQ?si=JZzhF1OAH3MuMNXW" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </section>
+
+    <!-- Sekcja galerii -->
+    <section id="gallery-section">
+        <div class="gallery">
+            <img src="ujecia/1.jpg" alt="Zdjęcie 1">
+            <img src="ujecia/2.jpg" alt="Zdjęcie 2">
+            <img src="ujecia/3.jpg" alt="Zdjęcie 3">
+            <img src="ujecia/4.jpg" alt="Zdjęcie 4">
+            <img src="ujecia/5.jpg" alt="Zdjęcie 5">
+            <img src="ujecia/6.jpg" alt="Zdjęcie 6">
+            <img src="ujecia/7.jpg" alt="Zdjęcie 7">
+            <img src="ujecia/8.jpg" alt="Zdjęcie 8">
+            <img src="ujecia/9.jpg" alt="Zdjęcie 9">
+            <img src="ujecia/10.jpg" alt="Zdjęcie 10">
+        </div>
+    </section>
+
+    <script>
+        // Płynne przewijanie do sekcji
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', function (event) {
+                event.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 60,
+                        behavior: 'smooth',
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
