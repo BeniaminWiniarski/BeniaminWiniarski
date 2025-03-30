@@ -11,13 +11,17 @@
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth; /* Przeniesione z body do html */
+        }
+
         body {
             font-family: Arial, sans-serif;
             background-color: #000;
             color: white;
-            scroll-behavior: smooth; /* Płynne przewijanie */
         }
 
+        /* Reszta stylów pozostaje bez zmian */
         .navbar {
             position: fixed;
             top: 0;
@@ -32,7 +36,7 @@
         }
 
         .logo {
-            height: 30px; /* Zmniejszone logo */
+            height: 30px;
         }
 
         .nav-links {
@@ -43,11 +47,11 @@
         .nav-links a {
             color: white;
             text-decoration: none;
-            font-size: 16px; /* Zmniejszony rozmiar czcionki */
+            font-size: 16px;
             padding: 6px 10px;
             border-radius: 5px;
             transition: background-color 0.3s;
-            white-space: nowrap; /* Zapobiega zawijaniu tekstu */
+            white-space: nowrap;
         }
 
         .nav-links a:hover {
@@ -61,9 +65,11 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 60px 15px 40px; /* Więcej miejsca na górze dla navbara */
+            padding: 60px 15px 40px;
+            scroll-margin-top: 60px; /* Dodane dla lepszego pozycjonowania */
         }
 
+        /* Reszta stylów pozostaje bez zmian */
         .sketchfab-container {
             width: 85%;
             height: 600px;
@@ -251,6 +257,26 @@
     </div>
 
     <script>
+        // Smooth scroll dla przeglądarek, które nie obsługują CSS scroll-behavior
+        if (!('scrollBehavior' in document.documentElement.style)) {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        const targetPosition = targetElement.offsetTop - 60; // Uwzględniamy wysokość navbara
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        }
+
+        // Reszta skryptu pozostaje bez zmian
         let currentImageIndex = 0;
         const images = document.querySelectorAll('.gallery img');
 
@@ -258,12 +284,12 @@
             currentImageIndex = index;
             document.getElementById('lightbox-img').src = images[index].src;
             document.getElementById('lightbox').style.display = 'flex';
-            document.body.style.overflow = 'hidden'; // Blokuje scrollowanie strony
+            document.body.style.overflow = 'hidden';
         }
 
         function closeLightbox() {
             document.getElementById('lightbox').style.display = 'none';
-            document.body.style.overflow = 'auto'; // Przywraca scrollowanie
+            document.body.style.overflow = 'auto';
         }
 
         function prevImage() {
