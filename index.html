@@ -11,16 +11,16 @@
         :root {
             /* Jasna paleta monochromatyczna */
             --bg-color: #ffffff;
-            --text-color: #333333; /* Ciemny szary tekst */
-            --text-color-hover: #000000; /* Czarny tekst na hover */
-            --navbar-bg: rgba(255, 255, 255, 0.85); /* Jasne tło navbara */
-            --container-bg: #f8f8f8; /* Bardzo jasne szare tło kontenerów */
-            --border-color: #e0e0e0; /* Jasny szary border */
-            --shadow-color-dark: rgba(0, 0, 0, 0.1); /* Lżejszy cień dla jasnego tła */
+            --text-color: #333333;
+            --text-color-hover: #000000;
+            --navbar-bg: rgba(255, 255, 255, 0.85);
+            --container-bg: #f8f8f8;
+            --border-color: #e0e0e0; /* Używany tylko dla navbara */
+            --shadow-color-dark: rgba(0, 0, 0, 0.1);
             --font-main: 'Montserrat', sans-serif;
             --transition-speed: 0.3s;
 
-            /* Style dla lightboxa (pozostają ciemne dla kontrastu) */
+            /* Style dla lightboxa */
             --lightbox-overlay-bg: rgba(0, 0, 0, 0.9);
             --lightbox-button-bg: rgba(30, 30, 30, 0.7);
             --lightbox-button-hover-bg: rgba(10, 10, 10, 0.9);
@@ -41,7 +41,7 @@
         body {
             font-family: var(--font-main);
             background-color: var(--bg-color);
-            color: var(--text-color); /* Ustawienie domyślnego koloru tekstu */
+            color: var(--text-color);
             line-height: 1.6;
         }
 
@@ -57,14 +57,12 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            border-bottom: 1px solid var(--border-color); /* Jasny border */
+            border-bottom: 1px solid var(--border-color); /* Border tylko pod navbarem */
             transition: background-color var(--transition-speed);
         }
 
         .logo {
             height: 35px;
-            /* Można dodać filtr dla logo, jeśli słabo wygląda na jasnym tle, np.: */
-            /* filter: invert(1) brightness(0.5); */
         }
 
         .nav-links {
@@ -73,7 +71,7 @@
         }
 
         .nav-links a {
-            color: var(--text-color); /* Ciemny tekst linku */
+            color: var(--text-color);
             text-decoration: none;
             font-size: 16px;
             padding: 8px 12px;
@@ -91,17 +89,17 @@
             bottom: 0;
             left: 50%;
             transform: translateX(-50%);
-            background-color: var(--text-color); /* Ciemne podkreślenie */
+            background-color: var(--text-color);
             transition: width var(--transition-speed) ease-in-out, background-color var(--transition-speed);
         }
 
         .nav-links a:hover {
-            color: var(--text-color-hover); /* Czarny tekst na hover */
+            color: var(--text-color-hover);
         }
 
         .nav-links a:hover::after {
             width: 100%;
-            background-color: var(--text-color-hover); /* Czarne podkreślenie na hover */
+            background-color: var(--text-color-hover);
         }
 
         section {
@@ -110,30 +108,26 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 100px 30px 80px;
+            padding: 100px 30px 80px; /* Padding definiuje odstępy */
             scroll-margin-top: 70px;
-            border-bottom: 1px solid var(--border-color); /* Jasny separator */
-             background-color: var(--bg-color); /* Sekcje mają tło strony */
-        }
-
-        section:last-of-type {
-             border-bottom: none;
+            /* Usunięto border-bottom */
+            background-color: var(--bg-color);
         }
 
         h2 {
             font-size: 2.5em;
             margin-bottom: 40px;
-            color: var(--text-color); /* Użyj głównego koloru tekstu */
-            font-weight: 700;
+            color: var(--text-color);
+            font-weight: 400; /* Regularna grubość czcionki */
         }
 
         .sketchfab-container,
         .video-container,
         .gallery img {
             border-radius: 10px;
-            box-shadow: 0 6px 20px var(--shadow-color-dark); /* Lżejszy cień */
+            box-shadow: 0 6px 20px var(--shadow-color-dark);
             overflow: hidden;
-            background-color: var(--container-bg); /* Jasnoszare tło kontenerów */
+            background-color: var(--container-bg);
         }
 
         .sketchfab-container {
@@ -188,7 +182,6 @@
         }
 
         /* --- Lightbox --- */
-        /* Zachowuje ciemny wygląd dla kontrastu z obrazem */
         .lightbox {
             display: flex;
             position: fixed;
@@ -196,7 +189,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: var(--lightbox-overlay-bg); /* Ciemne tło z zmiennej */
+            background: var(--lightbox-overlay-bg);
             justify-content: center;
             align-items: center;
             flex-direction: column;
@@ -215,9 +208,9 @@
             max-width: 90%;
             max-height: 80%;
             border-radius: 4px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2); /* Cień dla obrazka w lightboxie */
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
             display: block;
-             background-color: var(--bg-color); /* Białe tło na wypadek przezroczystych PNG */
+            background-color: var(--bg-color);
         }
 
         .lightbox .close,
@@ -225,18 +218,18 @@
             position: absolute;
             cursor: pointer;
             z-index: 1002;
-            background-color: var(--lightbox-button-bg); /* Ciemne tło przycisku */
+            background-color: var(--lightbox-button-bg);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: background-color var(--transition-speed), color var(--transition-speed);
-            color: var(--lightbox-icon-color); /* Jasny kolor ikony */
+            color: var(--lightbox-icon-color);
         }
         .lightbox .close:hover,
         .lightbox .arrow:hover {
-             background-color: var(--lightbox-button-hover-bg); /* Ciemniejsze tło na hover */
-             color: var(--lightbox-icon-hover-color); /* Jaśniejsza ikona na hover */
+             background-color: var(--lightbox-button-hover-bg);
+             color: var(--lightbox-icon-hover-color);
         }
 
         .lightbox .close {
@@ -267,7 +260,6 @@
 
 
         /* --- Media Queries --- */
-        /* Dostosowują się do nowych kolorów dziedziczonych z :root */
         @media (max-width: 768px) {
             .navbar { padding: 10px 15px; }
             .logo { height: 30px; }
