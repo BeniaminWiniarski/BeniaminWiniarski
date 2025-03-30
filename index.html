@@ -18,7 +18,6 @@
             scroll-behavior: smooth;
         }
 
-        /* Nawigacja */
         .navbar {
             position: fixed;
             top: 0;
@@ -34,13 +33,11 @@
 
         .logo {
             height: 40px;
-            margin-right: auto; /* Logo przesunięte do lewej */
         }
 
         .nav-links {
             display: flex;
-            gap: 25px; /* Większa przerwa między linkami */
-            margin-left: auto; /* Linki przesunięte na prawo */
+            gap: 25px;
         }
 
         .nav-links a {
@@ -56,7 +53,6 @@
             background-color: #444;
         }
 
-        /* Sekcje */
         section {
             min-height: 100vh;
             display: flex;
@@ -65,38 +61,27 @@
             align-items: center;
             text-align: center;
             padding: 40px 20px;
-            background-color: #000;
         }
 
-        /* Model 3D */
         .sketchfab-container {
-            width: 85%;
-            height: 600px;
+            width: 95%; /* Zwiększenie szerokości */
+            height: 800px; /* Zwiększenie wysokości */
             border-radius: 10px;
-            overflow: hidden;
             box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+            overflow: hidden;
         }
 
-        .sketchfab-container iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        /* Film */
         .video-container {
-            width: 85%;
-            max-width: 600px;
+            width: 90%;
+            max-width: 900px;
         }
 
         .video-container iframe {
             width: 100%;
-            height: 300px;
+            height: 500px;
             border-radius: 10px;
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
         }
 
-        /* Galeria */
         .gallery {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -108,26 +93,65 @@
         .gallery img {
             width: 100%;
             border-radius: 10px;
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+            cursor: pointer;
         }
 
-        /* Responsywność */
-        @media (max-width: 768px) {
-            .nav-links {
-                gap: 15px; /* Mniejsze odstępy na telefonach */
-            }
-            .nav-links a {
-                font-size: 16px;
-            }
-            .video-container iframe {
-                height: 250px;
-            }
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            z-index: 1001;
+        }
+
+        .lightbox img {
+            max-width: 90%;
+            max-height: 80%;
+            border-radius: 10px;
+        }
+
+        .lightbox .close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 40px;
+            color: white;
+            cursor: pointer;
+            z-index: 1002;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 10px;
+            border-radius: 50%;
+        }
+
+        .arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 40px;
+            color: white;
+            cursor: pointer;
+            z-index: 1002;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 10px;
+            border-radius: 50%;
+        }
+
+        .arrow-left {
+            left: 20px;
+        }
+
+        .arrow-right {
+            right: 20px;
         }
     </style>
 </head>
-<body onload="scrollToModel3D()">
-
-    <!-- Nawigacja -->
+<body>
     <div class="navbar">
         <img src="logo.png" alt="Logo" class="logo">
         <div class="nav-links">
@@ -137,58 +161,62 @@
         </div>
     </div>
 
-    <!-- Sekcja modelu 3D -->
     <section id="model-section">
         <div class="sketchfab-container">
             <iframe title="samochód" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" src="https://sketchfab.com/models/18a430ed338247f3af25abd3aa68c587/embed?ui_infos=0&ui_watermark=0"></iframe>
         </div>
     </section>
 
-    <!-- Sekcja filmu -->
     <section id="video-section">
         <div class="video-container">
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/7xWXS7qJ0ho?si=mNXF-sLI42EuXgDs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/7xWXS7qJ0ho?si=mNXF-sLI42EuXgDs" frameborder="0" allowfullscreen></iframe>
         </div>
     </section>
 
-    <!-- Sekcja galerii -->
     <section id="gallery-section">
-        <div class="gallery">
-            <img src="ujecia/1.jpg" alt="Zdjęcie 1">
-            <img src="ujecia/2.jpg" alt="Zdjęcie 2">
-            <img src="ujecia/3.jpg" alt="Zdjęcie 3">
-            <img src="ujecia/4.jpg" alt="Zdjęcie 4">
-            <img src="ujecia/5.jpg" alt="Zdjęcie 5">
-            <img src="ujecia/6.jpg" alt="Zdjęcie 6">
-            <img src="ujecia/7.jpg" alt="Zdjęcie 7">
-            <img src="ujecia/8.jpg" alt="Zdjęcie 8">
-            <img src="ujecia/9.jpg" alt="Zdjęcie 9">
-            <img src="ujecia/10.jpg" alt="Zdjęcie 10">
+        <div class="gallery" id="gallery">
+            <img src="ujecia/1.jpg" alt="Zdjęcie 1" onclick="openLightbox(0)">
+            <img src="ujecia/2.jpg" alt="Zdjęcie 2" onclick="openLightbox(1)">
+            <img src="ujecia/3.jpg" alt="Zdjęcie 3" onclick="openLightbox(2)">
+            <img src="ujecia/4.jpg" alt="Zdjęcie 4" onclick="openLightbox(3)">
+            <img src="ujecia/5.jpg" alt="Zdjęcie 5" onclick="openLightbox(4)">
+            <img src="ujecia/6.jpg" alt="Zdjęcie 6" onclick="openLightbox(5)">
+            <img src="ujecia/7.jpg" alt="Zdjęcie 7" onclick="openLightbox(6)">
+            <img src="ujecia/8.jpg" alt="Zdjęcie 8" onclick="openLightbox(7)">
+            <img src="ujecia/9.jpg" alt="Zdjęcie 9" onclick="openLightbox(8)">
+            <img src="ujecia/10.jpg" alt="Zdjęcie 10" onclick="openLightbox(9)">
         </div>
     </section>
+
+    <div class="lightbox" id="lightbox">
+        <span class="close" onclick="closeLightbox()">&times;</span>
+        <span class="arrow arrow-left" onclick="prevImage()">&#10094;</span>
+        <img id="lightbox-img">
+        <span class="arrow arrow-right" onclick="nextImage()">&#10095;</span>
+    </div>
 
     <script>
-        // Płynne przewijanie do sekcji
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', function (event) {
-                event.preventDefault();
-                const targetId = this.getAttribute('href').substring(1);
-                const targetElement = document.getElementById(targetId);
+        let currentImageIndex = 0;
+        const images = document.querySelectorAll('.gallery img');
 
-                if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 60,
-                        behavior: 'smooth',
-                    });
-                }
-            });
-        });
+        function openLightbox(index) {
+            currentImageIndex = index;
+            document.getElementById('lightbox-img').src = images[index].src;
+            document.getElementById('lightbox').style.display = 'flex';
+        }
 
-        // Automatyczne przewijanie do modelu 3D po załadowaniu strony
-        function scrollToModel3D() {
-            setTimeout(() => {
-                document.getElementById("model-section").scrollIntoView({ behavior: "smooth" });
-            }, 500);
+        function closeLightbox() {
+            document.getElementById('lightbox').style.display = 'none';
+        }
+
+        function prevImage() {
+            currentImageIndex = (currentImageIndex > 0) ? currentImageIndex - 1 : images.length - 1;
+            document.getElementById('lightbox-img').src = images[currentImageIndex].src;
+        }
+
+        function nextImage() {
+            currentImageIndex = (currentImageIndex < images.length - 1) ? currentImageIndex + 1 : 0;
+            document.getElementById('lightbox-img').src = images[currentImageIndex].src;
         }
     </script>
 </body>
