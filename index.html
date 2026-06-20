@@ -15,11 +15,11 @@
     
     <style>
         :root {
-            --bg-granat: #030712;         /* Głęboka noc jako baza podkładu */
-            --bg-designer-blue: #09163a;    /* Ekskluzywne tło sekcji tekstowych */
-            --accent-blue: #0026e6;         /* Kobalt / Klein Blue z Twojego rysunku */
-            --accent-red-orange: #ff3600;   /* Kolor napisu ISKRA */
-            --lamp-orange-bg: #ff5000;      /* Dojebany, designerski pomarańcz pod lampę 3D */
+            --bg-granat: #030712;         
+            --bg-designer-blue: #09163a;    
+            --accent-blue: #0026e6;         
+            --accent-red-orange: #ff3600;   
+            --lamp-orange-bg: #ff5000;      
             --font-display: 'Syne', sans-serif;
             --font-body: 'Plus Jakarta Sans', sans-serif;
         }
@@ -91,9 +91,9 @@
             opacity: 0.6;
         }
 
-        /* 1. HERO FIXED CONTAINER (STRONA TYTUŁOWA - NIERUCHOME TŁO) */
+        /* 1. HERO CONTAINER */
         .hero-fixed-container {
-            position: fixed; /* Zablokowane pod spodem */
+            position: fixed; 
             top: 0;
             left: 0;
             width: 100%;
@@ -112,7 +112,6 @@
             position: relative;
         }
 
-        /* Linie siatki kompozycyjnej */
         .grid-line-h {
             position: absolute;
             left: 0;
@@ -142,7 +141,6 @@
             height: 100%;
         }
 
-        /* Kontener 3D */
         #canvas-3d-container {
             width: 100%;
             height: 100%;
@@ -168,14 +166,12 @@
             transform: scale(1.3);
         }
 
-        /* KAFELEK TL: POMARAŃCZOWE TŁO DLA LAMPY 3D */
         .block-tl {
             grid-column: 1 / 2;
             grid-row: 1 / 2;
             background: var(--lamp-orange-bg);
         }
 
-        /* KAFELEK TR: Kobaltowe tło + ISKRA */
         .block-tr {
             grid-column: 2 / 3;
             grid-row: 1 / 2;
@@ -202,7 +198,6 @@
             will-change: transform;
         }
 
-        /* KAFELEK BL: Manifest */
         .block-bl {
             grid-column: 1 / 2;
             grid-row: 2 / 3;
@@ -232,7 +227,6 @@
             transform: translateY(20px);
         }
 
-        /* KAFELEK BR: Zdjęcie lampki różowej */
         .block-br {
             grid-column: 2 / 3;
             grid-row: 2 / 3;
@@ -275,16 +269,16 @@
             color: rgba(255,255,255,0.4);
         }
 
-        /* 2. SCROLLABLE CONTENT (WARSTWA WIERZCHNIA - PŁYNNIE NASUWA SIĘ Z GÓRU) */
+        /* 2. SCROLLABLE CONTENT */
         .scroll-content {
             position: relative;
-            z-index: 2;         /* Nad nieruchomą okładką */
-            margin-top: 100vh;  /* Odsłania całe Hero na starcie */
+            z-index: 2;         
+            margin-top: 100vh;  
             background: var(--bg-granat);
             box-shadow: 0 -50px 100px rgba(0,0,0,0.9);
         }
 
-        /* Sekcja O Nas - Zmieniona na designerski niebieski */
+        /* O nas / Intro */
         .about {
             padding: 200px 0;
             background-color: var(--bg-designer-blue);
@@ -412,7 +406,7 @@
             transform: translateY(-50%) scale(1);
         }
 
-        /* Galeria horyzontalna */
+        /* Galeria */
         .gallery {
             padding: 150px 0;
             background: #02050f;
@@ -476,7 +470,7 @@
             text-transform: uppercase;
         }
 
-        /* Opinie - Zmieniona na designerski niebieski */
+        /* Opinie */
         .testimonials {
             padding: 150px 0;
             background: var(--bg-designer-blue);
@@ -541,18 +535,101 @@
 
         .submit-btn:hover { background: #fff; color: #000; }
 
-        /* RWD */
+        /* --- MOBILNY RESET SIATKI (ZAPOBIEGA ROZJEŻDŻANIU I OVERLAPOM Z IMAGE_2.PNG) --- */
         @media(max-width: 900px) {
-            .hero-fixed-container { position: relative; height: auto; z-index: 2; }
-            .hero-grid { grid-template-columns: 1fr; grid-template-rows: repeat(4, auto); height: auto; }
-            .block-tl, .block-tr, .block-bl, .block-br { height: 50vh; }
-            .block-bl { height: auto; padding: 60px 5vw; }
-            .scroll-content { margin-top: 0; }
-            .card-wide, .card-narrow, .card-tall, .card-square { grid-column: span 12; min-height: 400px; }
-            .about-text { grid-column: span 12; }
-            .process-grid { grid-template-columns: 1fr; gap: 40px; }
-            .contact-info, .contact-form { grid-column: span 12; }
-            .gallery-item { width: 75vw; height: 45vh; }
+            nav {
+                position: absolute; /* Zapobiega przyklejaniu i nachodzeniu na dynamiczny viewport */
+                padding: 25px 5vw;
+                mix-blend-mode: normal;
+                background: var(--bg-granat);
+                border-bottom: 1px solid rgba(255,255,255,0.08);
+            }
+            .nav-links {
+                gap: 20px;
+            }
+            .nav-links a {
+                font-size: 0.8rem;
+            }
+            .grid-line-h, .grid-line-v {
+                display: none !important;
+            }
+            .hero-fixed-container { 
+                position: relative; /* Bezpieczne wyłączenie fixed na mobile */
+                height: auto; 
+                z-index: 2; 
+                padding-top: 90px; /* Przestrzeń bezpieczeństwa pod menu */
+            }
+            .hero-grid { 
+                display: flex;
+                flex-direction: column; /* Układ pionowy, nic na siebie nie nachodzi */
+                height: auto; 
+            }
+            .grid-block { 
+                width: 100% !important;
+                height: auto !important;
+                min-height: 45vh;
+            }
+            
+            /* Kolejność kafelków dostosowana pod mobile */
+            .block-tr { 
+                order: 1; 
+                min-height: 35vh; 
+                padding: 60px 40px;
+            }
+            .iskra-letter {
+                font-size: clamp(2.5rem, 12vw, 5rem) !important; /* Płynne dopasowanie liter do ekranu telefonu */
+            }
+            .block-tl { 
+                order: 2; 
+                min-height: 50vh; 
+            }
+            #canvas-3d-container {
+                pointer-events: none; /* Pozwala przewijać stronę przeciągając palcem po modelu 3D */
+            }
+            .block-bl { 
+                order: 3; 
+                padding: 45px 5vw;
+            }
+            .block-br { 
+                order: 4; 
+                min-height: 50vh; 
+            }
+            
+            .scroll-content { 
+                margin-top: 0 !important; /* Likwidacja pustej przestrzeni 100vh */
+            }
+            .card-wide, .card-narrow, .card-tall, .card-square { 
+                grid-column: span 12 !important; 
+                min-height: 400px; 
+            }
+            .about-text { 
+                grid-column: span 12; 
+            }
+            .process-grid { 
+                grid-template-columns: 1fr; 
+                gap: 40px; 
+            }
+            .contact-info, .contact-form { 
+                grid-column: span 12; 
+            }
+            
+            /* Swiper dotykowy w galerii na telefonie */
+            .gallery {
+                overflow-x: auto !important;
+                -webkit-overflow-scrolling: touch;
+            }
+            .gallery-track {
+                padding-right: 5vw;
+            }
+            .gallery-item { 
+                width: 80vw !important; 
+                height: 45vh !important; 
+            }
+            .year-stamp, .cta-wrap { 
+                bottom: 20px; 
+                left: 20px; 
+                right: auto;
+            }
         }
     </style>
 </head>
@@ -563,24 +640,23 @@
         <div class="nav-links">
             <a href="#collections">Kolekcje</a>
             <a href="#bestsellers">Bestsellery</a>
-            <a href="#about">O nas</a>
             <a href="#contact">Kontakt</a>
         </div>
     </nav>
 
-    <!-- 1. WARSTWA HERO - CAŁKOWICIE STACJONARNA POD STRONĄ -->
+    <!-- 1. WARSTWA HERO -->
     <div class="hero-fixed-container">
         <div class="grid-line-h"></div>
         <div class="grid-line-v"></div>
 
         <section class="hero-grid">
             
-            <!-- KAFELEK TL: PROSTA, PIĘKNA I WYRAZISTA LAMPA 3D NA POMARAŃCZOWYM TLE -->
+            <!-- KAFELEK TL: MODEL 3D -->
             <div class="grid-block block-tl">
                 <div id="canvas-3d-container"></div>
             </div>
 
-            <!-- KAFELEK TR: Kobalt + ISKRA -->
+            <!-- KAFELEK TR: KOBALT + ISKRA -->
             <div class="grid-block block-tr">
                 <div class="iskra-title-wrap">
                     <span class="iskra-letter">I</span>
@@ -591,13 +667,13 @@
                 </div>
             </div>
 
-            <!-- KAFELEK BL: Manifest tekstowy -->
+            <!-- KAFELEK BL: TEKST -->
             <div class="grid-block block-bl">
                 <h2>Fotonowa Awangarda</h2>
                 <p>Geometria, która definiuje luksusowe przestrzenie. Autorskie oprawy oświetleniowe projektowane na pograniczu fizyki i czystej sztuki.</p>
             </div>
 
-            <!-- KAFELEK BR: Druga (Różowa) lampka -->
+            <!-- KAFELEK BR: FOTO RÓŻOWA LAMPKA -->
             <div class="grid-block block-br">
                 <div class="block-img-wrap layer-img-2">
                     <img src="fot/228b245260f9d7f145ccf2eb364c4389.jpg" alt="Iskra Pink Glass">
@@ -611,7 +687,7 @@
         </section>
     </div>
 
-    <!-- 2. WARSTWA SCROLLOWALNA (PŁYNNA NAPRAWA) -->
+    <!-- 2. WARSTWA SCROLLOWALNA -->
     <div class="scroll-content">
 
         <!-- O NAS -->
@@ -672,7 +748,7 @@
             </div>
         </section>
 
-        <!-- HORYZONTALNA GALERIA -->
+        <!-- HORIZONTAL GALERIA -->
         <section class="gallery">
             <div class="container"><h2 class="section-header" style="color: #fff; margin-bottom: 40px;">Sztuka we wnętrzu</h2></div>
             <div class="gallery-wrap">
@@ -685,7 +761,7 @@
             </div>
         </section>
 
-        <!-- PROCES PROJEKTOWY -->
+        <!-- PROCES -->
         <section class="process">
             <div class="container">
                 <h2 class="section-header">Proces Projektowy</h2>
@@ -714,7 +790,7 @@
             </div>
         </section>
 
-        <!-- OPINIE -->
+        <!-- TESTIMONIALS -->
         <section class="testimonials">
             <div class="container">
                 <div class="review-box">
@@ -724,7 +800,7 @@
             </div>
         </section>
 
-        <!-- KONTAKT -->
+        <!-- CONTACT -->
         <section id="contact" class="contact container">
             <div class="contact-info">
                 <h2 class="section-header">Zamów obiekt do projektu</h2>
@@ -746,11 +822,10 @@
 
     </div>
 
-    <!-- SCRIPT LOGIC + NEW 3D ENGINE -->
+    <!-- RENDERING ENGINE -->
     <script>
         gsap.registerPlugin(ScrollTrigger);
 
-        // --- PROSTY, CZYSTY I WYRAZISTY MODEL LAMPKI 3D (EFEKT JAK Z ZDJĘCIA) ---
         const container3d = document.getElementById('canvas-3d-container');
         const scene = new THREE.Scene();
         
@@ -761,30 +836,28 @@
         renderer.setSize(container3d.clientWidth, container3d.clientHeight);
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
         renderer.toneMapping = THREE.ACESFilmicToneMapping;
-        renderer.toneMappingExposure = 1.5; // Rozjaśnienie sceny dla maksymalnej widoczności
+        renderer.toneMappingExposure = 1.5;
         container3d.appendChild(renderer.domElement);
 
         const lampGroup = new THREE.Group();
         
-        // 1. Ryflowana, wyrazista podstawa (Czerwono-pomarańczowy błyszczący walec)
-        const baseGeo = new THREE.CylinderGeometry(0.55, 0.55, 1.6, 24); // Niska liczba segmentów daje efekt fasetowania/ryflowania
+        const baseGeo = new THREE.CylinderGeometry(0.55, 0.55, 1.6, 24);
         const baseMat = new THREE.MeshStandardMaterial({ 
             color: 0xff1a00, 
             metalness: 0.1, 
             roughness: 0.1,
-            flatShading: true // Doskonała widoczność krawędzi pionowych
+            flatShading: true
         });
         const meshBase = new THREE.Mesh(baseGeo, baseMat);
         meshBase.position.y = -0.8;
         lampGroup.add(meshBase);
 
-        // 2. Piękny, dwuwarstwowy klosz grzyba (Lathe Geometry o czystym profilu)
         const points = [];
         points.push(new THREE.Vector2(0.5, -0.1));
-        points.push(new THREE.Vector2(1.1, 0.1));  // Szeroki dolny klosz
+        points.push(new THREE.Vector2(1.1, 0.1));
         points.push(new THREE.Vector2(1.15, 0.4));
-        points.push(new THREE.Vector2(0.7, 0.5));  // Przewężenie / Krok drugi
-        points.push(new THREE.Vector2(0.75, 0.8)); // Górna kopuła
+        points.push(new THREE.Vector2(0.7, 0.5));
+        points.push(new THREE.Vector2(0.75, 0.8));
         points.push(new THREE.Vector2(0.0, 0.95));
         
         const shadeGeo = new THREE.LatheGeometry(points, 32);
@@ -793,23 +866,21 @@
             transparent: true,
             opacity: 0.85,
             roughness: 0.2,
-            transmission: 0.4, // Delikatne przepuszczanie światła ze środka
+            transmission: 0.4,
             side: THREE.DoubleSide
         });
         const meshShade = new THREE.Mesh(shadeGeo, shadeMat);
         meshShade.position.y = 0.0;
         lampGroup.add(meshShade);
 
-        // 3. Rdzeń żarzący się wewnątrz
         const coreGeo = new THREE.CylinderGeometry(0.15, 0.15, 0.5, 16);
-        const coreMat = new THREE.MeshBasicMaterial({ color: THREE.WebGLLights });
+        const coreMat = new THREE.MeshBasicMaterial({ color: 0xffe6cc });
         const meshCore = new THREE.Mesh(coreGeo, coreMat);
         meshCore.position.y = 0.2;
         lampGroup.add(meshCore);
 
         scene.add(lampGroup);
 
-        // Oświetlenie studyjne - Gwarantuje idealną czytelność bryły lampy
         const ambientLight = new THREE.AmbientLight(0xffffff, 1.2);
         scene.add(ambientLight);
 
@@ -821,23 +892,21 @@
         frontLight.position.set(0, 0, 4);
         scene.add(frontLight);
 
-        // Interakcja z myszką
         let mouseX = 0, mouseY = 0;
-        window.addEventListener('mousemove', (e) => {
-            mouseX = (e.clientX / window.innerWidth) - 0.5;
-            mouseY = (e.clientY / window.innerHeight) - 0.5;
-        });
+        if(window.innerWidth > 900) {
+            window.addEventListener('mousemove', (e) => {
+                mouseX = (e.clientX / window.innerWidth) - 0.5;
+                mouseY = (e.clientY / window.innerHeight) - 0.5;
+            });
+        }
 
         function animate3D() {
             requestAnimationFrame(animate3D);
-            
-            // Delikatny obrót wokół osi
             lampGroup.rotation.y += 0.005;
-
-            // Reakcja na kursor
-            lampGroup.rotation.x += (mouseY * 0.4 - lampGroup.rotation.x) * 0.05;
-            lampGroup.rotation.z += (-mouseX * 0.4 - lampGroup.rotation.z) * 0.05;
-
+            if(window.innerWidth > 900) {
+                lampGroup.rotation.x += (mouseY * 0.4 - lampGroup.rotation.x) * 0.05;
+                lampGroup.rotation.z += (-mouseX * 0.4 - lampGroup.rotation.z) * 0.05;
+            }
             renderer.render(scene, camera);
         }
         animate3D();
@@ -848,8 +917,7 @@
             renderer.setSize(container3d.clientWidth, container3d.clientHeight);
         });
 
-
-        // --- GSAP INTRO REVEAL SEKWENCJA ---
+        // --- GSAP INTRO ---
         window.addEventListener('DOMContentLoaded', () => {
             let introTimeline = gsap.timeline();
 
@@ -887,9 +955,16 @@
             }, '-=0.6');
         });
 
-        // --- SCROLL ANIMACJE (BEZ BLOKOWANIA STRONY - PEŁNY FIX PRZEWIJANIA) ---
+        // --- SCROLL LOGIC DESKTOP ---
         if (window.innerWidth > 900) {
-            // Przyciemnianie tła podczas nasuwania się strony wierzchniej
+            ScrollTrigger.create({
+                trigger: '.hero-fixed-container',
+                start: 'top top',
+                end: 'bottom top',
+                pin: true,
+                pinSpacer: false
+            });
+
             gsap.to('.hero-fixed-container', {
                 scrollTrigger: {
                     trigger: '.scroll-content',
@@ -901,7 +976,6 @@
                 ease: 'none'
             });
 
-            // Rozsuwanie liter logotypu na scroll
             gsap.to('.iskra-title-wrap', {
                 scrollTrigger: {
                     trigger: '.scroll-content',
@@ -913,7 +987,6 @@
                 ease: 'none'
             });
 
-            // Rozbicie modułowe (Exploded view) lampki 3D na scroll
             gsap.to(meshShade.position, {
                 scrollTrigger: {
                     trigger: '.scroll-content',
@@ -936,7 +1009,6 @@
                 ease: 'none'
             });
 
-            // HORIZONTAL SCROLL DOLNEJ GALERII
             let track = document.querySelector('.gallery-track');
             gsap.to(track, {
                 scrollTrigger: {
