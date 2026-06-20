@@ -2,7 +2,7 @@
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ISKRA | Avant-Garde Lighting</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -35,7 +35,6 @@
             font-family: var(--font-body);
             overflow-x: hidden;
             line-height: 1.4;
-            -webkit-overflow-scrolling: touch; /* Płynny scroll na iOS */
         }
 
         h1, h2, h3 {
@@ -535,14 +534,14 @@
 
         .submit-btn:hover { background: #fff; color: #000; }
 
-        /* --- GLOBALNE ZABEZPIECZENIE PRZED BLOKOWANIEM DOTYKU (IPAD / MOBILE) --- */
+        /* --- GLOBALNE ZABEZPIECZENIE PRZED BLOKOWANIEM DOTYKU --- */
         @media (pointer: coarse) {
             #canvas-3d-container {
-                pointer-events: none !important; /* Całkowicie uniemożliwia 3D przejęcie scrolla palcem */
+                pointer-events: none !important;
             }
         }
 
-        /* --- DESIGNER RESPONSIVE SYSTEM (COVERS BOTH IPAD & MOBILE) --- */
+        /* --- DESIGNER RESPONSIVE SYSTEM --- */
         @media(max-width: 1024px) {
             nav {
                 position: absolute; 
@@ -561,7 +560,7 @@
                 display: none !important;
             }
             .hero-fixed-container { 
-                position: relative; /* Wyłączenie fixed zapobiega zamrażaniu widoku na iPadOS */
+                position: relative; 
                 height: auto; 
                 z-index: 2; 
                 padding-top: 90px; 
@@ -599,7 +598,7 @@
             }
             
             .scroll-content { 
-                margin-top: 0 !important; /* Likwidacja błędu pustej przestrzeni */
+                margin-top: 0 !important; 
             }
             .card-wide, .card-narrow, .card-tall, .card-square { 
                 grid-column: span 12 !important; 
@@ -616,7 +615,6 @@
                 grid-column: span 12; 
             }
             
-            /* Płynny, natywny Swipe poziomy dla galerii na iPadzie i telefonie */
             .gallery {
                 overflow-x: auto !important;
                 -webkit-overflow-scrolling: touch;
@@ -658,7 +656,6 @@
         <div class="grid-line-v"></div>
 
         <section class="hero-grid">
-            
             <div class="grid-block block-tl">
                 <div id="canvas-3d-container"></div>
             </div>
@@ -687,12 +684,10 @@
                 </div>
                 <span class="year-stamp">2026©</span>
             </div>
-
         </section>
     </div>
 
     <div class="scroll-content">
-
         <section id="about" class="about">
             <div class="container about-grid">
                 <h2 class="about-title">Rzeźbimy światło, definiujemy przestrzeń.</h2>
@@ -729,7 +724,6 @@
         <section id="bestsellers" class="bestsellers">
             <div class="container">
                 <h2 class="section-header">Bestsellery</h2>
-                
                 <div class="product-line">
                     <h3>01 / Glass Totem Sculpt</h3>
                     <img src="fot/7d5d4ab2e5a991a5afff4249f1495f41.jpg" alt="Totem Sculpt" class="product-img-preview">
@@ -815,7 +809,6 @@
                 <button type="submit" class="submit-btn">Wyślij zapytanie</button>
             </form>
         </section>
-
     </div>
 
     <script>
@@ -887,7 +880,6 @@
         frontLight.position.set(0, 0, 4);
         scene.add(frontLight);
 
-        // Wykrywanie myszy (Tylko komputery bez dotyku)
         let mouseX = 0, mouseY = 0;
         if(window.matchMedia("(pointer: fine)").matches) {
             window.addEventListener('mousemove', (e) => {
@@ -951,18 +943,11 @@
             }, '-=0.6');
         });
 
-        // --- GSAP MEDIA QUERIES (ZAPOBIEGA BLOKOWANIU IPADA) ---
+        // --- GSAP MEDIA QUERIES ---
         let mm = gsap.matchMedia();
 
-        // Te animacje i piny wykonają się WYŁĄCZNIE na komputerach z myszką
         mm.add("(min-width: 1025px) and (pointer: fine)", () => {
-            ScrollTrigger.create({
-                trigger: '.hero-fixed-container',
-                start: 'top top',
-                end: 'bottom top',
-                pin: true,
-                pinSpacer: false
-            });
+            // USUNIĘTO BŁĘDNY BLOK UNIERUCHAMIAJĄCY (ScrollTrigger.create pin: true)
 
             gsap.to('.hero-fixed-container', {
                 scrollTrigger: {
@@ -1021,7 +1006,7 @@
             });
         });
 
-        // Globalne animacje ujawniania treści na scroll
+        // Globalne animacje na scroll
         gsap.from('.about-text', {
             scrollTrigger: {
                 trigger: '.about',
