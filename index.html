@@ -2,9 +2,8 @@
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>ISKRA | Avant-Garde Lighting</title>
-    <!-- Fonts, GSAP & Three.js -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Plus+Jakarta+Sans:wght@300;400;500&display=swap" rel="stylesheet">
@@ -36,6 +35,7 @@
             font-family: var(--font-body);
             overflow-x: hidden;
             line-height: 1.4;
+            -webkit-overflow-scrolling: touch; /* Płynny scroll na iOS */
         }
 
         h1, h2, h3 {
@@ -535,10 +535,17 @@
 
         .submit-btn:hover { background: #fff; color: #000; }
 
-        /* --- MOBILNY RESET SIATKI (ZAPOBIEGA ROZJEŻDŻANIU I OVERLAPOM Z IMAGE_2.PNG) --- */
-        @media(max-width: 900px) {
+        /* --- GLOBALNE ZABEZPIECZENIE PRZED BLOKOWANIEM DOTYKU (IPAD / MOBILE) --- */
+        @media (pointer: coarse) {
+            #canvas-3d-container {
+                pointer-events: none !important; /* Całkowicie uniemożliwia 3D przejęcie scrolla palcem */
+            }
+        }
+
+        /* --- DESIGNER RESPONSIVE SYSTEM (COVERS BOTH IPAD & MOBILE) --- */
+        @media(max-width: 1024px) {
             nav {
-                position: absolute; /* Zapobiega przyklejaniu i nachodzeniu na dynamiczny viewport */
+                position: absolute; 
                 padding: 25px 5vw;
                 mix-blend-mode: normal;
                 background: var(--bg-granat);
@@ -554,14 +561,14 @@
                 display: none !important;
             }
             .hero-fixed-container { 
-                position: relative; /* Bezpieczne wyłączenie fixed na mobile */
+                position: relative; /* Wyłączenie fixed zapobiega zamrażaniu widoku na iPadOS */
                 height: auto; 
                 z-index: 2; 
-                padding-top: 90px; /* Przestrzeń bezpieczeństwa pod menu */
+                padding-top: 90px; 
             }
             .hero-grid { 
                 display: flex;
-                flex-direction: column; /* Układ pionowy, nic na siebie nie nachodzi */
+                flex-direction: column; 
                 height: auto; 
             }
             .grid-block { 
@@ -570,21 +577,17 @@
                 min-height: 45vh;
             }
             
-            /* Kolejność kafelków dostosowana pod mobile */
             .block-tr { 
                 order: 1; 
                 min-height: 35vh; 
                 padding: 60px 40px;
             }
             .iskra-letter {
-                font-size: clamp(2.5rem, 12vw, 5rem) !important; /* Płynne dopasowanie liter do ekranu telefonu */
+                font-size: clamp(3.5rem, 10vw, 6rem) !important; 
             }
             .block-tl { 
                 order: 2; 
                 min-height: 50vh; 
-            }
-            #canvas-3d-container {
-                pointer-events: none; /* Pozwala przewijać stronę przeciągając palcem po modelu 3D */
             }
             .block-bl { 
                 order: 3; 
@@ -596,7 +599,7 @@
             }
             
             .scroll-content { 
-                margin-top: 0 !important; /* Likwidacja pustej przestrzeni 100vh */
+                margin-top: 0 !important; /* Likwidacja błędu pustej przestrzeni */
             }
             .card-wide, .card-narrow, .card-tall, .card-square { 
                 grid-column: span 12 !important; 
@@ -613,17 +616,23 @@
                 grid-column: span 12; 
             }
             
-            /* Swiper dotykowy w galerii na telefonie */
+            /* Płynny, natywny Swipe poziomy dla galerii na iPadzie i telefonie */
             .gallery {
                 overflow-x: auto !important;
                 -webkit-overflow-scrolling: touch;
+            }
+            .gallery-wrap {
+                overflow: visible;
             }
             .gallery-track {
                 padding-right: 5vw;
             }
             .gallery-item { 
-                width: 80vw !important; 
-                height: 45vh !important; 
+                width: 60vw !important; 
+                height: 40vh !important; 
+            }
+            @media(max-width: 600px) {
+                .gallery-item { width: 80vw !important; }
             }
             .year-stamp, .cta-wrap { 
                 bottom: 20px; 
@@ -644,19 +653,16 @@
         </div>
     </nav>
 
-    <!-- 1. WARSTWA HERO -->
     <div class="hero-fixed-container">
         <div class="grid-line-h"></div>
         <div class="grid-line-v"></div>
 
         <section class="hero-grid">
             
-            <!-- KAFELEK TL: MODEL 3D -->
             <div class="grid-block block-tl">
                 <div id="canvas-3d-container"></div>
             </div>
 
-            <!-- KAFELEK TR: KOBALT + ISKRA -->
             <div class="grid-block block-tr">
                 <div class="iskra-title-wrap">
                     <span class="iskra-letter">I</span>
@@ -667,13 +673,11 @@
                 </div>
             </div>
 
-            <!-- KAFELEK BL: TEKST -->
             <div class="grid-block block-bl">
                 <h2>Fotonowa Awangarda</h2>
                 <p>Geometria, która definiuje luksusowe przestrzenie. Autorskie oprawy oświetleniowe projektowane na pograniczu fizyki i czystej sztuki.</p>
             </div>
 
-            <!-- KAFELEK BR: FOTO RÓŻOWA LAMPKA -->
             <div class="grid-block block-br">
                 <div class="block-img-wrap layer-img-2">
                     <img src="fot/228b245260f9d7f145ccf2eb364c4389.jpg" alt="Iskra Pink Glass">
@@ -687,10 +691,8 @@
         </section>
     </div>
 
-    <!-- 2. WARSTWA SCROLLOWALNA -->
     <div class="scroll-content">
 
-        <!-- O NAS -->
         <section id="about" class="about">
             <div class="container about-grid">
                 <h2 class="about-title">Rzeźbimy światło, definiujemy przestrzeń.</h2>
@@ -700,7 +702,6 @@
             </div>
         </section>
 
-        <!-- KOLEKCJE -->
         <section id="collections" class="collections">
             <div class="container">
                 <h2 class="section-header">Kolekcje</h2>
@@ -725,7 +726,6 @@
             </div>
         </section>
 
-        <!-- BESTSELLERS -->
         <section id="bestsellers" class="bestsellers">
             <div class="container">
                 <h2 class="section-header">Bestsellery</h2>
@@ -748,7 +748,6 @@
             </div>
         </section>
 
-        <!-- HORIZONTAL GALERIA -->
         <section class="gallery">
             <div class="container"><h2 class="section-header" style="color: #fff; margin-bottom: 40px;">Sztuka we wnętrzu</h2></div>
             <div class="gallery-wrap">
@@ -761,7 +760,6 @@
             </div>
         </section>
 
-        <!-- PROCES -->
         <section class="process">
             <div class="container">
                 <h2 class="section-header">Proces Projektowy</h2>
@@ -790,7 +788,6 @@
             </div>
         </section>
 
-        <!-- TESTIMONIALS -->
         <section class="testimonials">
             <div class="container">
                 <div class="review-box">
@@ -800,7 +797,6 @@
             </div>
         </section>
 
-        <!-- CONTACT -->
         <section id="contact" class="contact container">
             <div class="contact-info">
                 <h2 class="section-header">Zamów obiekt do projektu</h2>
@@ -822,7 +818,6 @@
 
     </div>
 
-    <!-- RENDERING ENGINE -->
     <script>
         gsap.registerPlugin(ScrollTrigger);
 
@@ -892,8 +887,9 @@
         frontLight.position.set(0, 0, 4);
         scene.add(frontLight);
 
+        // Wykrywanie myszy (Tylko komputery bez dotyku)
         let mouseX = 0, mouseY = 0;
-        if(window.innerWidth > 900) {
+        if(window.matchMedia("(pointer: fine)").matches) {
             window.addEventListener('mousemove', (e) => {
                 mouseX = (e.clientX / window.innerWidth) - 0.5;
                 mouseY = (e.clientY / window.innerHeight) - 0.5;
@@ -903,7 +899,7 @@
         function animate3D() {
             requestAnimationFrame(animate3D);
             lampGroup.rotation.y += 0.005;
-            if(window.innerWidth > 900) {
+            if(window.matchMedia("(pointer: fine)").matches) {
                 lampGroup.rotation.x += (mouseY * 0.4 - lampGroup.rotation.x) * 0.05;
                 lampGroup.rotation.z += (-mouseX * 0.4 - lampGroup.rotation.z) * 0.05;
             }
@@ -955,8 +951,11 @@
             }, '-=0.6');
         });
 
-        // --- SCROLL LOGIC DESKTOP ---
-        if (window.innerWidth > 900) {
+        // --- GSAP MEDIA QUERIES (ZAPOBIEGA BLOKOWANIU IPADA) ---
+        let mm = gsap.matchMedia();
+
+        // Te animacje i piny wykonają się WYŁĄCZNIE na komputerach z myszką
+        mm.add("(min-width: 1025px) and (pointer: fine)", () => {
             ScrollTrigger.create({
                 trigger: '.hero-fixed-container',
                 start: 'top top',
@@ -1020,8 +1019,9 @@
                 x: () => -(track.scrollWidth - window.innerWidth),
                 ease: 'none'
             });
-        }
+        });
 
+        // Globalne animacje ujawniania treści na scroll
         gsap.from('.about-text', {
             scrollTrigger: {
                 trigger: '.about',
